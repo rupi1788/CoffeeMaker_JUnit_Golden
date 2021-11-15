@@ -94,8 +94,8 @@ public class CoffeeMakerTest {
 	}
 
 	@Test
-	public void testAddRecipe1() throws RecipeException {
-		CoffeeMaker coffeeMaker= new CoffeeMaker();
+	public void testAddRecipe() throws RecipeException {
+		CoffeeMaker coffeeMaker8= new CoffeeMaker();
 		//Set up for r4
 
 		recipe4.setName("Hot Chocolate");
@@ -104,10 +104,9 @@ public class CoffeeMakerTest {
 		recipe4.setAmtMilk("1");
 		recipe4.setAmtSugar("1");
 		recipe4.setPrice("75");
-		assertTrue( coffeeMaker.addRecipe(recipe4));
+		assertTrue( coffeeMaker8.addRecipe(recipe4));
 
 	}
-
 
 
 	
@@ -119,10 +118,10 @@ public class CoffeeMakerTest {
 	 * @throws InventoryException  if there was an error parsing the quanity
 	 * 		to a positive integer.
 	 */
-	//@Test
-	//public void testAddInventory() throws InventoryException {
-	//	coffeeMaker.addInventory("4","7","0","9");
-	//}
+	@Test
+	public void testAddInventory() throws InventoryException {
+		coffeeMaker.addInventory("4","7","0","9");
+	}
 
 	@Test
 	public void testAddInventory1() throws InventoryException {
