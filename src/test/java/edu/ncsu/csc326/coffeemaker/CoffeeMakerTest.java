@@ -93,24 +93,106 @@ public class CoffeeMakerTest {
 		recipe4.setPrice("65");
 	}
 
+	//@Test
+	//public void testAddRecipe() throws RecipeException {
+		//CoffeeMaker coffeeMaker8= new CoffeeMaker();
+		//Set up for r4
+
+//		recipe4.setName("Hot Chocolate");
+//		recipe4.setAmtChocolate("4");
+//		recipe4.setAmtCoffee("0");
+//		recipe4.setAmtMilk("1");
+//		recipe4.setAmtSugar("1");
+//		recipe4.setPrice("75");
+//		assertTrue( coffeeMaker8.addRecipe(recipe4));
+
+	//}
+
 	@Test
 	public void testAddRecipe() throws RecipeException {
 		CoffeeMaker coffeeMaker8= new CoffeeMaker();
-		//Set up for r4
+		//Set up for r1
+		recipe1 = new Recipe();
+		recipe1.setName("Coffee");
+		recipe1.setAmtChocolate("0");
+		recipe1.setAmtCoffee("3");
+		recipe1.setAmtMilk("1");
+		recipe1.setAmtSugar("1");
+		recipe1.setPrice("50");
+		coffeeMaker8.addRecipe(recipe1);
 
+		//Set up for r2
+		recipe2 = new Recipe();
+		recipe2.setName("Mocha");
+		recipe2.setAmtChocolate("20");
+		recipe2.setAmtCoffee("3");
+		recipe2.setAmtMilk("1");
+		recipe2.setAmtSugar("1");
+		recipe2.setPrice("75");
+		coffeeMaker8.addRecipe(recipe2);
+
+		//Set up for r3
+		recipe3 = new Recipe();
+		recipe3.setName("Latte");
+		recipe3.setAmtChocolate("0");
+		recipe3.setAmtCoffee("3");
+		recipe3.setAmtMilk("3");
+		recipe3.setAmtSugar("1");
+		recipe3.setPrice("100");
+		coffeeMaker8.addRecipe(recipe3);
+
+		//Set up for r4
+		recipe4 = new Recipe();
 		recipe4.setName("Hot Chocolate");
 		recipe4.setAmtChocolate("4");
 		recipe4.setAmtCoffee("0");
 		recipe4.setAmtMilk("1");
 		recipe4.setAmtSugar("1");
 		recipe4.setPrice("75");
-		assertTrue( coffeeMaker8.addRecipe(recipe4));
+		assertFalse( coffeeMaker8.addRecipe(recipe4));
 
 	}
 
+	@Test
+	public void testDeleteRecipe() throws RecipeException {
+		CoffeeMaker coffeeMaker9= new CoffeeMaker();
+		//Set up for r1
+		recipe1 = new Recipe();
+		recipe1.setName("Coffee");
+		recipe1.setAmtChocolate("0");
+		recipe1.setAmtCoffee("3");
+		recipe1.setAmtMilk("1");
+		recipe1.setAmtSugar("1");
+		recipe1.setPrice("50");
+		coffeeMaker9.addRecipe(recipe1);
+
+		//Set up for r2
+		recipe2 = new Recipe();
+		recipe2.setName("Mocha");
+		recipe2.setAmtChocolate("20");
+		recipe2.setAmtCoffee("3");
+		recipe2.setAmtMilk("1");
+		recipe2.setAmtSugar("1");
+		recipe2.setPrice("75");
+		coffeeMaker9.addRecipe(recipe2);
+
+		//Set up for r3
+		recipe3 = new Recipe();
+		recipe3.setName("Latte");
+		recipe3.setAmtChocolate("0");
+		recipe3.setAmtCoffee("3");
+		recipe3.setAmtMilk("3");
+		recipe3.setAmtSugar("1");
+		recipe3.setPrice("100");
+		coffeeMaker9.addRecipe(recipe3);
+
+
+		assertEquals("Latte",coffeeMaker9.deleteRecipe(2));
+
+	}
 
 	
-	/**
+	/*
 	 * Given a coffee maker with the default inventory
 	 * When we add inventory with well-formed quantities
 	 * Then we do not get an exception trying to read the inventory quantities.
@@ -126,8 +208,8 @@ public class CoffeeMakerTest {
 	@Test
 	public void testAddInventory1() throws InventoryException {
 		CoffeeMaker coffeeMaker5 = new CoffeeMaker();
-		coffeeMaker5.addInventory("15","15","0","15");
-		assertEquals("Coffee: 30\nMilk: 30\nSugar: 15\nChocolate: 30\n", coffeeMaker5.checkInventory());
+		coffeeMaker5.addInventory("15","15","15","15");
+		assertEquals("Coffee: 30\nMilk: 30\nSugar: 30\nChocolate: 30\n", coffeeMaker5.checkInventory());
 	}
 	
 	/**
@@ -172,11 +254,11 @@ public class CoffeeMakerTest {
 	 * 		the coffee costs
 	 * Then we get the correct change back.
 	 */
-	//@Test
-	//public void testMakeCoffee() {
-	//	coffeeMaker.addRecipe(recipe1);
-	//	assertEquals(25, coffeeMaker.makeCoffee(0, 75));
-	//}
+	@Test
+	public void testMakeCoffee() {
+	    coffeeMaker.addRecipe(recipe1);
+		assertEquals(25, coffeeMaker.makeCoffee(0, 75));
+	}
 
 	@Test
 	public void testMakeCoffee1() throws RecipeException, InventoryException {
@@ -228,7 +310,7 @@ public class CoffeeMakerTest {
 		recipe1.setPrice("50");
 		coffeeMaker2.addRecipe(recipe1);
 
-		assertEquals(25, coffeeMaker2.makeCoffee(1, 25));
+		assertEquals(25, coffeeMaker2.makeCoffee(0, 25));
 	}
 	/**
 	 * Given a coffee maker with one valid recipe but in
@@ -252,7 +334,39 @@ public class CoffeeMakerTest {
 
 		assertEquals(100, coffeeMaker3.makeCoffee(0, 100));
 	}
+	/**
+	 * Given a coffee maker with two valid recipe
+	 * When we make coffee, selecting the valid recipe and paying less than
+	 * 	the coffee costs
+	 * Then we get the amount paid back.
+	 */
+	@Test
+	public void testMakeCoffee4() throws RecipeException {
+		coffeeMaker.addRecipe(recipe1);
+		CoffeeMaker coffeeMaker1 = new CoffeeMaker();
 
+		//Set up for r1
+		recipe1 = new Recipe();
+		recipe1.setName("Coffee");
+		recipe1.setAmtChocolate("0");
+		recipe1.setAmtCoffee("3");
+		recipe1.setAmtMilk("1");
+		recipe1.setAmtSugar("1");
+		recipe1.setPrice("50");
+		coffeeMaker1.addRecipe(recipe1);
+
+		//Set up for r2
+		recipe2 = new Recipe();
+		recipe2.setName("Mocha");
+		recipe2.setAmtChocolate("2");
+		recipe2.setAmtCoffee("3");
+		recipe2.setAmtMilk("1");
+		recipe2.setAmtSugar("1");
+		recipe2.setPrice("75");
+		coffeeMaker1.addRecipe(recipe2);
+
+		assertEquals(0, coffeeMaker1.makeCoffee(1, 75));
+	}
 
 
 }
